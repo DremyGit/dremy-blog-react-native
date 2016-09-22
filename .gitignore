@@ -1,0 +1,8 @@
+/index.ios.js
+/ios
+/node_modules
+.DS_Store
+build/
+.idea
+.gradle
+
