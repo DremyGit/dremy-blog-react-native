@@ -14,6 +14,7 @@ export default class App extends Component {
     return (
       <Router key='mainrouter' name='router'>
         <Scene key="drawer" component={SideDrawer} >
+          <Scene key="loading" component={Loading} hideNavBar={true}/>
           <Scene key="main"
             navigationBarStyle={styles.navigation} 
             titleStyle={styles.title}
@@ -25,9 +26,10 @@ export default class App extends Component {
             rightButtonStyle={styles.navButton}
             rightButtonImage={require('../images/ic_search.png')}
             onRight={() => {}}
+            style={styles.main}
+            type={ActionConst.REPLACE} 
           >
-            <Scene key="loading" component={Loading} hideNavBar={true}/>
-            <Scene key="home" component={Home} title="Dremy_博客" hideNavBar={false} type={ActionConst.REPLACE} />
+            <Scene key="home" component={Home} title="Dremy_博客" hideNavBar={false}/>
           </Scene>
         </Scene>
       </Router>
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
   navigation: {
     backgroundColor: '#78909c',
     paddingTop: 24,
-    height: 78,
+    height: 78
   },
   navButtonIcon: {
     height: 24,
@@ -56,5 +58,9 @@ const styles = StyleSheet.create({
   navButton: {
     marginTop: 24,
     padding: 15,
+  },
+  main: {
+    paddingTop: 78,
+    backgroundColor: '#888'
   }
 });

@@ -11,10 +11,10 @@ import {
 } from 'react-native';
 
 const MenuItem = (props) => {
-  console.log(props.rowId);
   return (
   <TouchableNativeFeedback
         onPress={() => {}}
+        delayPressIn={0}
         background={TouchableNativeFeedback.SelectableBackground()}>
       <View style={[styles.menuItem, props.isActive && styles.activeItem]}>
         <Image source={props.item.icon} style={styles.menuIcon} />

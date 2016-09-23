@@ -32,12 +32,15 @@ export default class SideDrawer extends Component {
         tweenHandler={(ratio) => ({
         mainOverlay: { opacity: (ratio) / 2},
             })}>
-        <DefaultRenderer navigationState={children[0]} onNavigate={this.props.onNavigate}/>
+          <DefaultRenderer navigationState={children[0]} onNavigate={this.props.onNavigate}/>
       </Drawer>
     )
   }
 };
-
+const styles = StyleSheet.create({
+  main: {
+  },
+});
 const drawerStyles = {
   drawer: { shadowColor: '#000000', shadowOpacity: 1, shadowRadius: 30},
   main: {paddingLeft: 3},
