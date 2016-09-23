@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import {Scene, Router, ActionConst} from 'react-native-router-flux';
 import {View, Text, Image} from 'react-native';
 import Loading from './Loading';
-import Home from './Home';
+import HomeScene from './HomeScene';
+import CategoryScene from './CategoryScene';
+import TagScene from './TagScene';
+import FavoriteScene from './FavoriteScene';
+import AboutScene from './AboutScene';
 import SideDrawer from './SideDrawer';
 import NavBar from './NavBar';
 import { StyleSheet } from 'react-native';
@@ -29,7 +33,11 @@ export default class App extends Component {
             style={styles.main}
             type={ActionConst.REPLACE} 
           >
-            <Scene key="home" component={Home} title="Dremy_博客" hideNavBar={false}/>
+            <Scene key="home" component={HomeScene} title="Dremy_博客" hideNavBar={false}/>
+            <Scene key="category" component={CategoryScene} title="全部分类" hideNavBar={false}/>
+            <Scene key="tag" component={TagScene} title="全部标签" hideNavBar={false}/>
+            <Scene key="favorite" component={FavoriteScene} title="收藏" hideNavBar={false}/>
+            <Scene key="about" component={AboutScene} title="关于" hideNavBar={false}/>
           </Scene>
         </Scene>
       </Router>

@@ -5,10 +5,9 @@ import {
   View,
   ScrollView
 } from 'react-native';
-import BlogCard from './BlogCard';
 import { Actions } from 'react-native-router-flux';
 
-export default class Category extends Component {
+export default class FavoriteScene extends Component {
   render() {
     return (
       <ScrollView style={styles.scroll}>

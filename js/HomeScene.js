@@ -3,29 +3,26 @@ import {
   StyleSheet,
   Text,
   View,
-  StatusBar,
   ScrollView
 } from 'react-native';
 import BlogCard from './BlogCard';
 import { Actions } from 'react-native-router-flux';
 
-export default class Home extends Component {
+export default class HomeScene extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.scroll}>
-          {React.cloneElement(this.props.children, { ...props })}
-        </ScrollView>
-      </View>
+      <ScrollView style={styles.scroll}>
+        <BlogCard />
+        <BlogCard />
+        <BlogCard />
+        <BlogCard />
+        <BlogCard />
+      </ScrollView>
     );
   }
 }
 
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
   scroll: {
     flex: 1,
     backgroundColor: '#eee'

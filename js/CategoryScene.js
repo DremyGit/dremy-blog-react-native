@@ -5,18 +5,12 @@ import {
   View,
   ScrollView
 } from 'react-native';
-import BlogCard from './BlogCard';
 import { Actions } from 'react-native-router-flux';
 
-export default class Home extends Component {
+export default class CategoryScene extends Component {
   render() {
     return (
       <ScrollView style={styles.scroll}>
-        <BlogCard />
-        <BlogCard />
-        <BlogCard />
-        <BlogCard />
-        <BlogCard />
       </ScrollView>
     );
   }
