@@ -50,9 +50,7 @@ export default class ControlPanel extends Component {
   }
 
   render() {
-    console.log('Rerender Scrollview');
     const MenuItem = (props) => {
-      console.log('Rerender MenuItem');
       return (
         <TouchableNativeFeedback
           onPress={() => this.onMenuItemPress(props.rowId)}
