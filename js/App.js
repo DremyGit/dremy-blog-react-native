@@ -33,11 +33,11 @@ export default class App extends Component {
             style={styles.main}
             type={ActionConst.REPLACE} 
           >
-            <Scene key="home" component={HomeScene} title="Dremy_博客" hideNavBar={false}/>
-            <Scene key="category" component={CategoryScene} title="全部分类" hideNavBar={false}/>
-            <Scene key="tag" component={TagScene} title="全部标签" hideNavBar={false}/>
-            <Scene key="favorite" component={FavoriteScene} title="收藏" hideNavBar={false}/>
-            <Scene key="about" component={AboutScene} title="关于" hideNavBar={false}/>
+            <Scene key="home" component={HomeScene} title="Dremy_博客" hideNavBar={false} type={ActionConst.REPLACE}/>
+            <Scene key="category" component={CategoryScene} title="全部分类" hideNavBar={false} type={ActionConst.REPLACE}/>
+            <Scene key="tag" component={TagScene} title="全部标签" hideNavBar={false} type={ActionConst.REPLACE}/>
+            <Scene key="favorite" component={FavoriteScene} title="收藏" hideNavBar={false} type={ActionConst.REPLACE}/>
+            <Scene key="about" component={AboutScene} title="关于" hideNavBar={false} type={ActionConst.REPLACE}/>
           </Scene>
         </Scene>
       </Router>

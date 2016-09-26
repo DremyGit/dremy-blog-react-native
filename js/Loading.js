@@ -10,8 +10,7 @@ export default class Loading extends Component {
 
   componentDidMount() {
     setTimeout(() => {
-      console.log(Actions.main());
-      console.log('OK')
+      Actions.main();
     }, 1000)
   }
 

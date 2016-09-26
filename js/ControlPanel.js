@@ -17,37 +17,50 @@ export default class ControlPanel extends Component {
 
   constructor(props) {
     super(props);
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.name !== r2.name});
+    const ds = new ListView.DataSource({rowHasChanged: () => true});
     this.state = {
-      dataSource: ds.cloneWithRows(this.menuItems),
-      activeItem: 0
-    }
-  }
-  menuItems = [
-        {name: '主页', key: 'home', icon: require('../images/ic_home.png')},
+      menuItems: [
+        {name: '主页', key: 'home', icon: require('../images/ic_home.png'), isActive: true},
         {name: '分类', key: 'category', icon: require('../images/ic_dashboard.png')},
         {name: '标签', key: 'tag', icon: require('../images/ic_label.png')},
         {name: '收藏', key: 'favorite', icon: require('../images/ic_favorite.png')},
         {name: '关于', key: 'about', icon: require('../images/ic_info.png')},
-  ]
+      ],
+      dataSource: ds
+    }
+  }
+
+  componentDidMount(){
+    this.setState({
+      dataSource:this.state.dataSource.cloneWithRows(this.state.menuItems)
+    })
+  }
 
   onMenuItemPress(rowId) {
-    const i = rowId;
-    Actions[this.menuItems[i].key]();
-    this.setState({activeItem: rowId});
-    setTimeout(() => Actions.refresh({key: 'drawer', open: value => false }), 1000);
+    const newItems = this.state.menuItems.slice();
+    newItems.forEach((item, i) => newItems[i].isActive = rowId == i);
+    //setTimeout(() => Actions.refresh({key: 'drawer', open: value => false }), 10);
+    setTimeout(() => {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(newItems)
+      });
+      Actions[this.state.menuItems[rowId].key]();
+      Actions.refresh({key: 'drawer', open: value => false })
+    }, 300);
   }
 
   render() {
+    console.log('Rerender Scrollview');
     const MenuItem = (props) => {
+      console.log('Rerender MenuItem');
       return (
         <TouchableNativeFeedback
           onPress={() => this.onMenuItemPress(props.rowId)}
           delayPressIn={0}
           background={TouchableNativeFeedback.SelectableBackground()}>
-          <View style={[styles.menuItem, props.isActive && styles.activeItem]}>
+          <View style={[styles.menuItem, props.item.isActive && styles.activeItem]}>
             <Image source={props.item.icon} style={styles.menuIcon} />
-            <Text style={[styles.menuItemText, props.isActive && styles.activeText]}>{props.item.name}</Text>
+            <Text style={[styles.menuItemText, props.item.isActive && styles.activeText]}>{props.item.name}</Text>
           </View>
         </TouchableNativeFeedback>
       )
@@ -60,7 +73,7 @@ export default class ControlPanel extends Component {
         <View style={styles.menu}>
           <ListView
             dataSource={this.state.dataSource}
-            renderRow={(rowData, sectionId, rowId) => <MenuItem item={rowData} rowId={rowId} isActive={rowId == this.state.activeItem}/>}
+            renderRow={(rowData, sectionId, rowId) => <MenuItem item={rowData} rowId={rowId}/>}
           />
         </View>
       </ScrollView>
