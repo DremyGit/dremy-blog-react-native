@@ -10,20 +10,22 @@ import { Actions } from 'react-native-router-flux';
 
 export default class BlogCard extends Component {
   render() {
+    const { blog } = this.props;
     return (
       <View style={styles.card}>
         <View style={styles.image} />
         <View style={styles.textArea}>
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={() => Actions.article({code: blog.code})}
             activeOpacity={0.3}
           >
-            <Text style={styles.title}>MongoDB在Node.js中的运用</Text>
+            <Text style={styles.title}>{blog.title}</Text>
           </TouchableOpacity>
           <View style={styles.subtitle}>
             <Text style={styles.date}>Jun 16, 2016</Text>
-            <Text style={styles.tag}>MongoDB</Text>
-            <Text style={styles.tag}>Node.js</Text>
+            {blog.tags.map(tag =>
+              <Text style={styles.tag} key={tag.code}>{tag.name}</Text>
+            )}
           </View>
         </View>
         <View style={styles.control}>

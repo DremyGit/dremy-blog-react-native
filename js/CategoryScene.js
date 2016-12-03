@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-const CategoryCard = () => {
+const CategoryCard = ({ category }) => {
   return (
     <View style={styles.card}>
       <TouchableNativeFeedback
@@ -18,10 +18,10 @@ const CategoryCard = () => {
       >
         <View style={styles.cardContainer}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>前端</Text>
-            <Text style={styles.subtitle}>(10)</Text>
+            <Text style={styles.title}>{category.name}</Text>
+            <Text style={styles.subtitle}>({category.count})</Text>
           </View>
-          <Text style={styles.subtitle}>Front End</Text>
+          <Text style={styles.subtitle}>{category.code}</Text>
         </View>
       </TouchableNativeFeedback>
     </View>
@@ -29,16 +29,26 @@ const CategoryCard = () => {
 }
 
 export default class CategoryScene extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: []
+    }
+  }
+  componentDidMount() {
+    fetch(`https://dremy.cn/api/categories`).then(res => res.json()).then(data => {
+      this.setState({categories: data})
+    })
+  }
+
   render() {
     return (
       <ScrollView style={styles.scroll}>
         <View style={styles.container}>
-          <CategoryCard />
-          <CategoryCard />
-          <CategoryCard />
-          <CategoryCard />
-          <CategoryCard />
-          <CategoryCard />
+          {this.state.categories.map(category =>
+            <CategoryCard category={category} key={category.code} />
+          )}
         </View>
       </ScrollView>
     );

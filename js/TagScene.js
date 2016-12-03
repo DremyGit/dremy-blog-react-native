@@ -20,27 +20,36 @@ const Tag = (props) => {
 }
 
 export default class TagScene extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      tags: []
+    }
+  }
+  componentDidMount() {
+    fetch(`https://dremy.cn/api/tags`).then(res => res.json()).then(data => {
+      this.max = data.reduce((max, next) => next.count < max ? max : next.count, 0);
+      this.min = data.reduce((min, next) => next.count > min ? min : next.count, this.max);
+      this.setState({tags: data})
+    })
+  }
+
   render() {
+    const { tags } = this.props;
     return (
       <ScrollView style={styles.scroll}>
         <View style={styles.container}>
-          <Tag title="React.js" fontSize={16} />
-          <Tag title="JavaScript" fontSize={24} />
-          <Tag title="函数式编程" fontSize={16} />
-          <Tag title="JavaScript" fontSize={30} />
-          <Tag title="Node.js" fontSize={12} />
-          <Tag title="HTTP" fontSize={18} />
-          <Tag title="NPM" fontSize={12} />
-          <Tag title="函数式编程" fontSize={16} />
-          <Tag title="Node.js" fontSize={12} />
-          <Tag title="HTTP" fontSize={18} />
-          <Tag title="NPM" fontSize={12} />
-          <Tag title="函数式编程" fontSize={16} />
-          <Tag title="NPM" fontSize={12} />
-          <Tag title="Node.js" fontSize={12} />
+          {this.state.tags.map(tag =>
+            <Tag title={tag.name} key={tag.code} fontSize={this.getFontSize(tag.count)} />
+          )}
         </View>
       </ScrollView>
     );
+  }
+
+  getFontSize(count) {
+    return 14 + Math.log(count - this.min + 1) / Math.log(this.max - this.min + 1) * (24 - 14)
   }
 }
 
